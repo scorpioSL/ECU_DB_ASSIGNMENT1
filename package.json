@@ -1,0 +1,23 @@
+{
+  "name": "db_assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node ./dist/index.js"
+  },
+  "author": "Pulasthi Bandara",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.6.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.5"
+  }
+}
