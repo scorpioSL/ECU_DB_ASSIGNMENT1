@@ -17,14 +17,15 @@ import { UnitActivity } from './entities/relations/unit-activity';
 import { UnitTeachingPeriod } from './entities/relations/unit-teaching-period';
 import { UnitUnitCoordinator } from './entities/relations/unit-unit-coordinator';
 import * as fs from 'fs';
+import { Environment } from './environment';
 
 export const AppDataSource: DataSource = new DataSource({
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "",
-    database: "db_assignment",
+    type: Environment.DB_TYPE,
+    host: Environment.DB_HOST,
+    port: Environment.DB_PORT,
+    username: Environment.DB_USERNAME,
+    password: Environment.DB_PASSWORD,
+    database: Environment.DB_NAME,
     synchronize: true,
     logging: true,
     entities: [

@@ -19,13 +19,14 @@ var teaching_room_1 = require("./entities/relations/teaching-room");
 var unit_activity_1 = require("./entities/relations/unit-activity");
 var unit_teaching_period_1 = require("./entities/relations/unit-teaching-period");
 var unit_unit_coordinator_1 = require("./entities/relations/unit-unit-coordinator");
+var environment_1 = require("./environment");
 exports.AppDataSource = new typeorm_1.DataSource({
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "",
-    database: "db_assignment",
+    type: environment_1.Environment.DB_TYPE,
+    host: environment_1.Environment.DB_HOST,
+    port: environment_1.Environment.DB_PORT,
+    username: environment_1.Environment.DB_USERNAME,
+    password: environment_1.Environment.DB_PASSWORD,
+    database: environment_1.Environment.DB_NAME,
     synchronize: true,
     logging: true,
     entities: [

@@ -38,12 +38,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var app_data_source_1 = require("./app-data-source");
+var create_db_1 = require("./create-db");
 function init() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, app_data_source_1.AppDataSource.initialize()];
+                case 0: return [4 /*yield*/, (0, create_db_1.createDB)()];
                 case 1:
+                    _a.sent();
+                    return [4 /*yield*/, app_data_source_1.AppDataSource.initialize()];
+                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }
