@@ -10,16 +10,14 @@ var room_1 = require("./entities/room");
 var school_1 = require("./entities/school");
 var semester_1 = require("./entities/semester");
 var student_1 = require("./entities/student");
-var teaching_period_1 = require("./entities/teaching-period");
 var unit_coordinator_1 = require("./entities/unit-coordinator");
 var unit_1 = require("./entities/unit");
 var year_1 = require("./entities/year");
 var campus_school_1 = require("./entities/relations/campus-school");
-var teaching_room_1 = require("./entities/relations/teaching-room");
 var unit_activity_1 = require("./entities/relations/unit-activity");
-var unit_teaching_period_1 = require("./entities/relations/unit-teaching-period");
 var unit_unit_coordinator_1 = require("./entities/relations/unit-unit-coordinator");
 var environment_1 = require("./environment");
+var unit_room_1 = require("./entities/relations/unit-room");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: environment_1.Environment.DB_TYPE,
     host: environment_1.Environment.DB_HOST,
@@ -38,16 +36,14 @@ exports.AppDataSource = new typeorm_1.DataSource({
         school_1.School,
         semester_1.Semerster,
         student_1.Student,
-        teaching_period_1.TeachingPeriod,
         unit_coordinator_1.UnitCoordinator,
         unit_1.Unit,
         year_1.Year,
         // Relations
         campus_school_1.CampusSchool,
-        teaching_room_1.TeachingRoom,
         unit_activity_1.UnitActivity,
-        unit_teaching_period_1.UnitTeachingPeriod,
         unit_unit_coordinator_1.UnitUnitCoordinator,
+        unit_room_1.UnitRoom,
     ],
     subscribers: [],
     migrations: [],

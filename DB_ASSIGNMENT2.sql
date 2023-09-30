@@ -1,11 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 5.1.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Sep 25, 2023 at 05:20 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -157,32 +150,6 @@ CREATE TABLE `Student` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `TeachingPeriod`
---
-
-CREATE TABLE `TeachingPeriod` (
-  `TeachingPeriodId` int(11) NOT NULL,
-  `Name` varchar(255) NOT NULL,
-  `StartDate` datetime NOT NULL,
-  `EndDate` datetime NOT NULL,
-  `Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `TeachingRoom`
---
-
-CREATE TABLE `TeachingRoom` (
-  `TeachingRoomId` int(11) NOT NULL,
-  `TeachingPeriodId` int(11) DEFAULT NULL,
-  `RoomId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Unit`
 --
 
@@ -232,13 +199,13 @@ CREATE TABLE `UnitCoordinator` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `UnitTeachingPeriod`
+-- Table structure for table `UnitRoom`
 --
 
-CREATE TABLE `UnitTeachingPeriod` (
-  `UnitTeachingPeriodId` int(11) NOT NULL,
+CREATE TABLE `UnitRoom` (
+  `UnitRoomId` int(11) NOT NULL,
   `UnitId` int(11) DEFAULT NULL,
-  `TeachingPeriodId` int(11) DEFAULT NULL
+  `RoomId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -329,20 +296,6 @@ ALTER TABLE `Student`
   ADD PRIMARY KEY (`StudentId`);
 
 --
--- Indexes for table `TeachingPeriod`
---
-ALTER TABLE `TeachingPeriod`
-  ADD PRIMARY KEY (`TeachingPeriodId`);
-
---
--- Indexes for table `TeachingRoom`
---
-ALTER TABLE `TeachingRoom`
-  ADD PRIMARY KEY (`TeachingRoomId`),
-  ADD UNIQUE KEY `REL_505879ed9c3cdd77d6cd1ea89d` (`TeachingPeriodId`),
-  ADD UNIQUE KEY `REL_3a8aa218856ae23958269b3768` (`RoomId`);
-
---
 -- Indexes for table `Unit`
 --
 ALTER TABLE `Unit`
@@ -364,12 +317,12 @@ ALTER TABLE `UnitCoordinator`
   ADD PRIMARY KEY (`UnitCoordinatorId`);
 
 --
--- Indexes for table `UnitTeachingPeriod`
+-- Indexes for table `UnitRoom`
 --
-ALTER TABLE `UnitTeachingPeriod`
-  ADD PRIMARY KEY (`UnitTeachingPeriodId`),
-  ADD UNIQUE KEY `REL_1b7f992ca0bded69e5c9931c6d` (`UnitId`),
-  ADD UNIQUE KEY `REL_acee7a3552eac385b8dd9ca582` (`TeachingPeriodId`);
+ALTER TABLE `UnitRoom`
+  ADD PRIMARY KEY (`UnitRoomId`),
+  ADD UNIQUE KEY `REL_1a13f33b88964b5d48953fb3fa` (`UnitId`),
+  ADD UNIQUE KEY `REL_7f19f85f848d1d76f6062427ca` (`RoomId`);
 
 --
 -- Indexes for table `UnitUnitCoordinator`
@@ -444,18 +397,6 @@ ALTER TABLE `Student`
   MODIFY `StudentId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `TeachingPeriod`
---
-ALTER TABLE `TeachingPeriod`
-  MODIFY `TeachingPeriodId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `TeachingRoom`
---
-ALTER TABLE `TeachingRoom`
-  MODIFY `TeachingRoomId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `Unit`
 --
 ALTER TABLE `Unit`
@@ -474,10 +415,10 @@ ALTER TABLE `UnitCoordinator`
   MODIFY `UnitCoordinatorId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `UnitTeachingPeriod`
+-- AUTO_INCREMENT for table `UnitRoom`
 --
-ALTER TABLE `UnitTeachingPeriod`
-  MODIFY `UnitTeachingPeriodId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `UnitRoom`
+  MODIFY `UnitRoomId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `UnitUnitCoordinator`
@@ -512,13 +453,6 @@ ALTER TABLE `Enrollment`
   ADD CONSTRAINT `FK_d7fa0f4d3b2ed94c51849f68552` FOREIGN KEY (`StudentId`) REFERENCES `Student` (`StudentId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `TeachingRoom`
---
-ALTER TABLE `TeachingRoom`
-  ADD CONSTRAINT `FK_3a8aa218856ae23958269b37680` FOREIGN KEY (`RoomId`) REFERENCES `Room` (`RoomId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_505879ed9c3cdd77d6cd1ea89d4` FOREIGN KEY (`TeachingPeriodId`) REFERENCES `TeachingPeriod` (`TeachingPeriodId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Constraints for table `UnitActivity`
 --
 ALTER TABLE `UnitActivity`
@@ -526,11 +460,11 @@ ALTER TABLE `UnitActivity`
   ADD CONSTRAINT `FK_90bf629e7e0209ab5ba459920bd` FOREIGN KEY (`ActivityId`) REFERENCES `Activity` (`ActivityId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `UnitTeachingPeriod`
+-- Constraints for table `UnitRoom`
 --
-ALTER TABLE `UnitTeachingPeriod`
-  ADD CONSTRAINT `FK_1b7f992ca0bded69e5c9931c6dc` FOREIGN KEY (`UnitId`) REFERENCES `Unit` (`UnitId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_acee7a3552eac385b8dd9ca582c` FOREIGN KEY (`TeachingPeriodId`) REFERENCES `TeachingPeriod` (`TeachingPeriodId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `UnitRoom`
+  ADD CONSTRAINT `FK_1a13f33b88964b5d48953fb3fae` FOREIGN KEY (`UnitId`) REFERENCES `Unit` (`UnitId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_7f19f85f848d1d76f6062427cab` FOREIGN KEY (`RoomId`) REFERENCES `Room` (`RoomId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `UnitUnitCoordinator`
