@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var app_data_source_1 = require("./app-data-source");
 var create_db_1 = require("./create-db");
+var select_query_1 = require("./queries/select-query");
 function init() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -48,6 +49,24 @@ function init() {
                     _a.sent();
                     return [4 /*yield*/, app_data_source_1.AppDataSource.initialize()];
                 case 2:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.MostPopularUnitsInAParticularYear()];
+                case 3:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.LeastPopularUnitsInAParticularYear()];
+                case 4:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.MostPopularStaffMember()];
+                case 5:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.LeastPopularStaffMember()];
+                case 6:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.StudentsWhoNeverEnrolled()];
+                case 7:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.OlderstFemaleAndYoungestMaleStudents()];
+                case 8:
                     _a.sent();
                     return [2 /*return*/];
             }

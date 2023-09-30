@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Unit = void 0;
 var typeorm_1 = require("typeorm");
+var enrollment_1 = require("./enrollment");
 var Unit = /** @class */ (function () {
     function Unit() {
     }
@@ -38,6 +39,10 @@ var Unit = /** @class */ (function () {
         (0, typeorm_1.Column)(),
         __metadata("design:type", String)
     ], Unit.prototype, "Credits", void 0);
+    __decorate([
+        (0, typeorm_1.OneToMany)(function () { return enrollment_1.Enrollment; }, function (enrollment) { return enrollment.Unit; }),
+        __metadata("design:type", Array)
+    ], Unit.prototype, "Enrollments", void 0);
     Unit = __decorate([
         (0, typeorm_1.Entity)({ name: 'Unit' })
     ], Unit);

@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Enrollment } from "./enrollment";
 
 @Entity({ name: 'Unit' })
 export class Unit {
 
-     // notify kavindu. added primary key column
+    // notify kavindu. added primary key column
     @PrimaryGeneratedColumn()
     public UnitId: number;
 
@@ -23,5 +24,8 @@ export class Unit {
 
     @Column()
     public Credits: string;
+
+    @OneToMany(() => Enrollment, (enrollment) => enrollment.Unit)
+    public Enrollments: Enrollment[];
 
 }
