@@ -40,6 +40,7 @@ require("reflect-metadata");
 var app_data_source_1 = require("./app-data-source");
 var create_db_1 = require("./create-db");
 var select_query_1 = require("./queries/select-query");
+var seed_1 = require("./inserts/seed");
 function init() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -50,26 +51,33 @@ function init() {
                     return [4 /*yield*/, app_data_source_1.AppDataSource.initialize()];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, select_query_1.SelectQueries.MostPopularUnitsInAParticularYear()];
+                    // seed data
+                    return [4 /*yield*/, seed_1.Seed.AddStudents()];
                 case 3:
+                    // seed data
+                    _a.sent();
+                    // select queries
+                    return [4 /*yield*/, select_query_1.SelectQueries.MostPopularUnitsInAParticularYear()];
+                case 4:
+                    // select queries
                     _a.sent();
                     return [4 /*yield*/, select_query_1.SelectQueries.LeastPopularUnitsInAParticularYear()];
-                case 4:
-                    _a.sent();
-                    return [4 /*yield*/, select_query_1.SelectQueries.MostPopularStaffMember()];
                 case 5:
                     _a.sent();
-                    return [4 /*yield*/, select_query_1.SelectQueries.LeastPopularStaffMember()];
+                    return [4 /*yield*/, select_query_1.SelectQueries.MostPopularStaffMember()];
                 case 6:
                     _a.sent();
-                    return [4 /*yield*/, select_query_1.SelectQueries.StudentsWhoNeverEnrolled()];
+                    return [4 /*yield*/, select_query_1.SelectQueries.LeastPopularStaffMember()];
                 case 7:
                     _a.sent();
-                    return [4 /*yield*/, select_query_1.SelectQueries.OlderstFemaleAndYoungestMaleStudents()];
+                    return [4 /*yield*/, select_query_1.SelectQueries.StudentsWhoNeverEnrolled()];
                 case 8:
                     _a.sent();
-                    return [4 /*yield*/, select_query_1.SelectQueries.SelectAllStudents()];
+                    return [4 /*yield*/, select_query_1.SelectQueries.OlderstFemaleAndYoungestMaleStudents()];
                 case 9:
+                    _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.SelectAllStudents()];
+                case 10:
                     _a.sent();
                     return [2 /*return*/];
             }

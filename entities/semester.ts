@@ -11,7 +11,10 @@ export class Semester {
     public SemesterName: string;
 
     @Column()
-    public Duration: string;
+    public StartDate: Date;
+
+    @Column()
+    public EndDate: Date;
 
     @ManyToOne(() => Year)
     @JoinColumn({ name: 'YearId' })

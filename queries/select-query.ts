@@ -78,8 +78,8 @@ export class SelectQueries {
 
     public static async OlderstFemaleAndYoungestMaleStudents(): Promise<void> {
         const query = await AppDataSource.query(`
-        SELECT * FROM Student WHERE (Gender = 'Female' AND DOB = (SELECT MIN(DOB) FROM Student WHERE Gender = 'Female')) 
-        OR (Gender = 'Male' AND DOB = (SELECT MAX(DOB) FROM Student WHERE Gender = 'Male'));
+        SELECT * FROM Student WHERE (Gender = 'F' AND DOB = (SELECT MIN(DOB) FROM Student WHERE Gender = 'F')) 
+        OR (Gender = 'M' AND DOB = (SELECT MAX(DOB) FROM Student WHERE Gender = 'M'));
         `);
 
         console.log(query);

@@ -25,8 +25,12 @@ var Semester = /** @class */ (function () {
     ], Semester.prototype, "SemesterName", void 0);
     __decorate([
         (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Semester.prototype, "Duration", void 0);
+        __metadata("design:type", Date)
+    ], Semester.prototype, "StartDate", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", Date)
+    ], Semester.prototype, "EndDate", void 0);
     __decorate([
         (0, typeorm_1.ManyToOne)(function () { return year_1.Year; }),
         (0, typeorm_1.JoinColumn)({ name: 'YearId' }),
