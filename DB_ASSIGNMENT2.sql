@@ -134,8 +134,9 @@ CREATE TABLE `School` (
 CREATE TABLE `Semester` (
   `SemesterId` int(11) NOT NULL,
   `SemesterName` varchar(255) NOT NULL,
-  `Duration` varchar(255) NOT NULL,
-  `YearId` int(11) DEFAULT NULL
+  `YearId` int(11) DEFAULT NULL,
+  `StartDate` datetime NOT NULL,
+  `EndDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -159,6 +160,14 @@ CREATE TABLE `Student` (
   `Gender` varchar(255) NOT NULL,
   `DOB` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Student`
+--
+
+INSERT INTO `Student` (`StudentId`, `FirstName`, `SurName`, `TelephoneNo`, `Email`, `Country`, `State`, `PostCode`, `Suburb`, `AddressLine1`, `AddressLine2`, `Gender`, `DOB`) VALUES
+(1, 'John', 'Lee', '+61495683402', 'johnlee@gmail.com', 'Australia', 'WA', '6101', '31', 'Kent Street', 'Cannington', 'M', '1996-07-22 06:30:00'),
+(2, 'Honey', 'Person', '+61426482933', 'honey98@gmail.com', 'Australia', 'Western Australia', '6153', '65', 'Kintail Rd', 'AppleCross', 'F', '1998-09-12 06:00:00');
 
 -- --------------------------------------------------------
 
@@ -404,7 +413,7 @@ ALTER TABLE `Semester`
 -- AUTO_INCREMENT for table `Student`
 --
 ALTER TABLE `Student`
-  MODIFY `StudentId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `StudentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `Unit`
