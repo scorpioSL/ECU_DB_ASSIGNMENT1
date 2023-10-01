@@ -5,7 +5,7 @@ import { Enrollment } from './entities/enrollment';
 import { Mode } from './entities/mode';
 import { Room } from './entities/room';
 import { School } from './entities/school';
-import { Semerster } from './entities/semester';
+import { Semester } from './entities/semester';
 import { Student } from './entities/student';
 import { UnitCoordinator } from './entities/unit-coordinator';
 import { Unit } from './entities/unit';
@@ -32,7 +32,7 @@ export const AppDataSource: DataSource = new DataSource({
         Mode,
         Room,
         School,
-        Semerster,
+        Semester,
         Student,
         UnitCoordinator,
         Unit,

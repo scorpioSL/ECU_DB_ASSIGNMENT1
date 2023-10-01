@@ -15,6 +15,7 @@ var student_1 = require("./student");
 var campus_school_1 = require("./relations/campus-school");
 var unit_1 = require("./unit");
 var mode_1 = require("./mode");
+var semester_1 = require("./semester");
 var Enrollment = /** @class */ (function () {
     function Enrollment() {
     }
@@ -46,6 +47,11 @@ var Enrollment = /** @class */ (function () {
         (0, typeorm_1.JoinColumn)({ name: 'ModeId' }),
         __metadata("design:type", mode_1.Mode)
     ], Enrollment.prototype, "Mode", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return semester_1.Semester; }),
+        (0, typeorm_1.JoinColumn)({ name: 'SemesterId' }),
+        __metadata("design:type", semester_1.Semester)
+    ], Enrollment.prototype, "Semester", void 0);
     Enrollment = __decorate([
         (0, typeorm_1.Entity)({ name: 'Enrollment' })
     ], Enrollment);

@@ -9,26 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Semerster = void 0;
+exports.Semester = void 0;
 var typeorm_1 = require("typeorm");
-var Semerster = /** @class */ (function () {
-    function Semerster() {
+var Semester = /** @class */ (function () {
+    function Semester() {
     }
     __decorate([
         (0, typeorm_1.PrimaryGeneratedColumn)(),
         __metadata("design:type", Number)
-    ], Semerster.prototype, "SemesterId", void 0);
+    ], Semester.prototype, "SemesterId", void 0);
     __decorate([
         (0, typeorm_1.Column)(),
         __metadata("design:type", String)
-    ], Semerster.prototype, "SemesterName", void 0);
+    ], Semester.prototype, "SemesterName", void 0);
     __decorate([
         (0, typeorm_1.Column)(),
         __metadata("design:type", String)
-    ], Semerster.prototype, "Duration", void 0);
-    Semerster = __decorate([
+    ], Semester.prototype, "Duration", void 0);
+    Semester = __decorate([
         (0, typeorm_1.Entity)({ name: 'Semester' })
-    ], Semerster);
-    return Semerster;
+    ], Semester);
+    return Semester;
 }());
-exports.Semerster = Semerster;
+exports.Semester = Semester;

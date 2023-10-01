@@ -3,6 +3,7 @@ import { Student } from "./student";
 import { CampusSchool } from "./relations/campus-school";
 import { Unit } from "./unit";
 import { Mode } from "./mode";
+import { Semester } from "./semester";
 
 @Entity({ name: 'Enrollment' })
 export class Enrollment {
@@ -29,4 +30,8 @@ export class Enrollment {
     @ManyToOne(() => Mode)
     @JoinColumn({ name: 'ModeId' })
     public Mode: Mode;
+
+    @ManyToOne(() => Semester)
+    @JoinColumn({ name: 'SemesterId' })
+    public Semester: Semester;
 }

@@ -20,8 +20,12 @@ export class SelectQueries {
 
     public static async MostPopularStaffMember(): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT UnitId,COUNT(UnitId) AS TOTALCOUNT FROM UnitUnitCoordinator UUC 
-            INNER JOIN UnitCoordinator UC ON UC.UnitCoordinatorId=UUC.UnitCoordinatorId GROUP BY UnitId ORDER BY TOTALCOUNT DESC;
+            SELECT UUC.UnitId,COUNT(UUC.UnitId) AS TOTALCOUNT FROM UnitUnitCoordinator UUC 
+            INNER JOIN UnitCoordinator UC ON UC.UnitCoordinatorId=UUC.UnitCoordinatorId
+            INNER JOIN Unit UN ON UN.UnitId=UUC.UnitId
+            INNER JOIN Enrollment ENR ON ENR.UnitId=UN.UnitId
+            INNER JOIN Semester SM ON SM.SemesterId=ENR.SemesterId 
+            WHERE SM.SemesterName='2023SEM1' GROUP BY UUC.UnitId ORDER BY TOTALCOUNT DESC;
         `);
 
         console.log(query);
@@ -29,8 +33,12 @@ export class SelectQueries {
 
     public static async LeastPopularStaffMember(): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT UnitId,COUNT(UnitId) AS TOTALCOUNT FROM UnitUnitCoordinator UUC 
-            INNER JOIN UnitCoordinator UC ON UC.UnitCoordinatorId=UUC.UnitCoordinatorId GROUP BY UnitId ORDER BY TOTALCOUNT ASC;
+        SELECT UUC.UnitId,COUNT(UUC.UnitId) AS TOTALCOUNT FROM UnitUnitCoordinator UUC 
+        INNER JOIN UnitCoordinator UC ON UC.UnitCoordinatorId=UUC.UnitCoordinatorId
+        INNER JOIN Unit UN ON UN.UnitId=UUC.UnitId
+        INNER JOIN Enrollment ENR ON ENR.UnitId=UN.UnitId
+        INNER JOIN Semester SM ON SM.SemesterId=ENR.SemesterId 
+        WHERE SM.SemesterName='2023SEM1' GROUP BY UUC.UnitId ORDER BY TOTALCOUNT ASC;
         `);
 
         console.log(query);

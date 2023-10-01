@@ -34,7 +34,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
         mode_1.Mode,
         room_1.Room,
         school_1.School,
-        semester_1.Semerster,
+        semester_1.Semester,
         student_1.Student,
         unit_coordinator_1.UnitCoordinator,
         unit_1.Unit,
