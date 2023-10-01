@@ -68,7 +68,20 @@ CREATE TABLE `Enrollment` (
   `CampusSchoolId` int(11) DEFAULT NULL,
   `UnitId` int(11) DEFAULT NULL,
   `ModeId` int(11) DEFAULT NULL,
-  `SemesterId` int(11) DEFAULT NULL
+  `SemesterId` int(11) DEFAULT NULL,
+  `UnitCoordinatorId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EnrollmentActivity`
+--
+
+CREATE TABLE `EnrollmentActivity` (
+  `EnrollmentActivityId` int(11) NOT NULL,
+  `EnrollmentId` int(11) DEFAULT NULL,
+  `ActivityId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -121,7 +134,8 @@ CREATE TABLE `School` (
 CREATE TABLE `Semester` (
   `SemesterId` int(11) NOT NULL,
   `SemesterName` varchar(255) NOT NULL,
-  `Duration` varchar(255) NOT NULL
+  `Duration` varchar(255) NOT NULL,
+  `YearId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -210,18 +224,6 @@ CREATE TABLE `UnitRoom` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `UnitUnitCoordinator`
---
-
-CREATE TABLE `UnitUnitCoordinator` (
-  `UnitUnitCoordinatorId` int(11) NOT NULL,
-  `UnitId` int(11) DEFAULT NULL,
-  `UnitCoordinatorId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Year`
 --
 
@@ -263,7 +265,16 @@ ALTER TABLE `Enrollment`
   ADD KEY `FK_17eaeb4c3fbe7602f4c6644d54e` (`CampusSchoolId`),
   ADD KEY `FK_d23f5084d78e8b8b4be58edab5c` (`UnitId`),
   ADD KEY `FK_04de544a57d065c7396650c3f49` (`ModeId`),
-  ADD KEY `FK_e34ec319d4369c457739931cc0e` (`SemesterId`);
+  ADD KEY `FK_e34ec319d4369c457739931cc0e` (`SemesterId`),
+  ADD KEY `FK_1d331d0beaeaa14725448f76bfd` (`UnitCoordinatorId`);
+
+--
+-- Indexes for table `EnrollmentActivity`
+--
+ALTER TABLE `EnrollmentActivity`
+  ADD PRIMARY KEY (`EnrollmentActivityId`),
+  ADD KEY `FK_f7d283e0829b3972f36a61f6a14` (`EnrollmentId`),
+  ADD KEY `FK_5699985c77cff0646dbf1c09579` (`ActivityId`);
 
 --
 -- Indexes for table `Mode`
@@ -287,7 +298,8 @@ ALTER TABLE `School`
 -- Indexes for table `Semester`
 --
 ALTER TABLE `Semester`
-  ADD PRIMARY KEY (`SemesterId`);
+  ADD PRIMARY KEY (`SemesterId`),
+  ADD KEY `FK_0c64c6b09e84309379b1f68809c` (`YearId`);
 
 --
 -- Indexes for table `Student`
@@ -325,14 +337,6 @@ ALTER TABLE `UnitRoom`
   ADD UNIQUE KEY `REL_7f19f85f848d1d76f6062427ca` (`RoomId`);
 
 --
--- Indexes for table `UnitUnitCoordinator`
---
-ALTER TABLE `UnitUnitCoordinator`
-  ADD PRIMARY KEY (`UnitUnitCoordinatorId`),
-  ADD UNIQUE KEY `REL_8de3e0be8d8570f44f459878d2` (`UnitId`),
-  ADD UNIQUE KEY `REL_a8df037235f5e65addfec85c5c` (`UnitCoordinatorId`);
-
---
 -- Indexes for table `Year`
 --
 ALTER TABLE `Year`
@@ -365,6 +369,12 @@ ALTER TABLE `CampusSchool`
 --
 ALTER TABLE `Enrollment`
   MODIFY `EnrollmentId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `EnrollmentActivity`
+--
+ALTER TABLE `EnrollmentActivity`
+  MODIFY `EnrollmentActivityId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Mode`
@@ -421,12 +431,6 @@ ALTER TABLE `UnitRoom`
   MODIFY `UnitRoomId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `UnitUnitCoordinator`
---
-ALTER TABLE `UnitUnitCoordinator`
-  MODIFY `UnitUnitCoordinatorId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `Year`
 --
 ALTER TABLE `Year`
@@ -449,9 +453,23 @@ ALTER TABLE `CampusSchool`
 ALTER TABLE `Enrollment`
   ADD CONSTRAINT `FK_04de544a57d065c7396650c3f49` FOREIGN KEY (`ModeId`) REFERENCES `Mode` (`ModeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_17eaeb4c3fbe7602f4c6644d54e` FOREIGN KEY (`CampusSchoolId`) REFERENCES `CampusSchool` (`CampusSchoolId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_1d331d0beaeaa14725448f76bfd` FOREIGN KEY (`UnitCoordinatorId`) REFERENCES `UnitCoordinator` (`UnitCoordinatorId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_d23f5084d78e8b8b4be58edab5c` FOREIGN KEY (`UnitId`) REFERENCES `Unit` (`UnitId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_d7fa0f4d3b2ed94c51849f68552` FOREIGN KEY (`StudentId`) REFERENCES `Student` (`StudentId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_e34ec319d4369c457739931cc0e` FOREIGN KEY (`SemesterId`) REFERENCES `Semester` (`SemesterId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `EnrollmentActivity`
+--
+ALTER TABLE `EnrollmentActivity`
+  ADD CONSTRAINT `FK_5699985c77cff0646dbf1c09579` FOREIGN KEY (`ActivityId`) REFERENCES `Activity` (`ActivityId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_f7d283e0829b3972f36a61f6a14` FOREIGN KEY (`EnrollmentId`) REFERENCES `Enrollment` (`EnrollmentId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `Semester`
+--
+ALTER TABLE `Semester`
+  ADD CONSTRAINT `FK_0c64c6b09e84309379b1f68809c` FOREIGN KEY (`YearId`) REFERENCES `Year` (`YearId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `UnitActivity`
@@ -466,13 +484,6 @@ ALTER TABLE `UnitActivity`
 ALTER TABLE `UnitRoom`
   ADD CONSTRAINT `FK_1a13f33b88964b5d48953fb3fae` FOREIGN KEY (`UnitId`) REFERENCES `Unit` (`UnitId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_7f19f85f848d1d76f6062427cab` FOREIGN KEY (`RoomId`) REFERENCES `Room` (`RoomId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `UnitUnitCoordinator`
---
-ALTER TABLE `UnitUnitCoordinator`
-  ADD CONSTRAINT `FK_8de3e0be8d8570f44f459878d2f` FOREIGN KEY (`UnitId`) REFERENCES `Unit` (`UnitId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_a8df037235f5e65addfec85c5cd` FOREIGN KEY (`UnitCoordinatorId`) REFERENCES `UnitCoordinator` (`UnitCoordinatorId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

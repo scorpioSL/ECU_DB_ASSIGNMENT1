@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Semester = void 0;
 var typeorm_1 = require("typeorm");
+var year_1 = require("./year");
 var Semester = /** @class */ (function () {
     function Semester() {
     }
@@ -26,6 +27,11 @@ var Semester = /** @class */ (function () {
         (0, typeorm_1.Column)(),
         __metadata("design:type", String)
     ], Semester.prototype, "Duration", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return year_1.Year; }),
+        (0, typeorm_1.JoinColumn)({ name: 'YearId' }),
+        __metadata("design:type", year_1.Year)
+    ], Semester.prototype, "Year", void 0);
     Semester = __decorate([
         (0, typeorm_1.Entity)({ name: 'Semester' })
     ], Semester);

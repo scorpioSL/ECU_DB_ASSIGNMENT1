@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Year } from "./year";
 
 @Entity({ name: 'Semester' })
 export class Semester {
@@ -11,5 +12,9 @@ export class Semester {
 
     @Column()
     public Duration: string;
+
+    @ManyToOne(() => Year)
+    @JoinColumn({ name: 'YearId' })
+    public Year: Year;
 
 }

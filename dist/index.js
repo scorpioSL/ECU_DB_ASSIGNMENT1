@@ -68,6 +68,9 @@ function init() {
                     return [4 /*yield*/, select_query_1.SelectQueries.OlderstFemaleAndYoungestMaleStudents()];
                 case 8:
                     _a.sent();
+                    return [4 /*yield*/, select_query_1.SelectQueries.SelectAllStudents()];
+                case 9:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });

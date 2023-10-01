@@ -13,6 +13,7 @@ async function init(): Promise<void> {
     await SelectQueries.LeastPopularStaffMember();
     await SelectQueries.StudentsWhoNeverEnrolled();
     await SelectQueries.OlderstFemaleAndYoungestMaleStudents();
+    await SelectQueries.SelectAllStudents();
 }
 
 init();

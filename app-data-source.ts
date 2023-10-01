@@ -12,9 +12,9 @@ import { Unit } from './entities/unit';
 import { Year } from './entities/year';
 import { CampusSchool } from './entities/relations/campus-school';
 import { UnitActivity } from './entities/relations/unit-activity';
-import { UnitUnitCoordinator } from './entities/relations/unit-unit-coordinator';
 import { Environment } from './environment';
 import { UnitRoom } from './entities/relations/unit-room';
+import { EnrollmentActivity } from './entities/relations/enrollment-activity';
 
 export const AppDataSource: DataSource = new DataSource({
     type: Environment.DB_TYPE,
@@ -40,8 +40,8 @@ export const AppDataSource: DataSource = new DataSource({
         // Relations
         CampusSchool,
         UnitActivity,
-        UnitUnitCoordinator,
         UnitRoom,
+        EnrollmentActivity,
     ],
     subscribers: [],
     migrations: [],

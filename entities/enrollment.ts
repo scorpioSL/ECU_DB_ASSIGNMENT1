@@ -4,6 +4,7 @@ import { CampusSchool } from "./relations/campus-school";
 import { Unit } from "./unit";
 import { Mode } from "./mode";
 import { Semester } from "./semester";
+import { UnitCoordinator } from "./unit-coordinator";
 
 @Entity({ name: 'Enrollment' })
 export class Enrollment {
@@ -34,4 +35,8 @@ export class Enrollment {
     @ManyToOne(() => Semester)
     @JoinColumn({ name: 'SemesterId' })
     public Semester: Semester;
+
+    @ManyToOne(() => UnitCoordinator)
+    @JoinColumn({ name: 'UnitCoordinatorId' })
+    public UnitCoordinator: UnitCoordinator;
 }

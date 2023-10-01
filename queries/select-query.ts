@@ -4,7 +4,14 @@ export class SelectQueries {
 
     public static async MostPopularUnitsInAParticularYear(year: number = 2023): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT UnitId,COUNT(UnitId) AS TOTALCOUNT FROM Enrollment WHERE YEAR(EnrollmentDateTime)=${year} GROUP BY UnitId ORDER BY TOTALCOUNT DESC;
+        Select Unit.UnitId, Unit.Name, COUNT(*) AS EnrollmentCount
+        From Unit 
+        Join Enrollment On Unit.UnitId = Enrollment.UnitId
+        Join Semester On Enrollment.SemesterId = Semester.SemesterId
+        Join Year On Semester.YearId = Year.YearId
+        Where Year.YearName = '2023Sem1'
+        Group by Unit.UnitId, Unit.Name
+        Order by EnrollmentCount DESC;
         `);
 
         console.log(query);
@@ -12,7 +19,14 @@ export class SelectQueries {
 
     public static async LeastPopularUnitsInAParticularYear(year: number = 2023): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT UnitId,COUNT(UnitId) AS TOTALCOUNT FROM Enrollment WHERE YEAR(EnrollmentDateTime)=${year} GROUP BY UnitId ORDER BY TOTALCOUNT ASC;
+        Select Unit.UnitId, Unit.Name, COUNT(*) AS EnrollmentCount
+        From Unit 
+        Join Enrollment On Unit.UnitId = Enrollment.UnitId
+        Join Semester On Enrollment.SemesterId = Semester.SemesterId
+        Join Year On Semester.YearId = Year.YearId
+        Where Year.YearName = '2023Sem1'
+        Group by Unit.UnitId, Unit.Name
+        Order by EnrollmentCount ASC;
         `);
 
         console.log(query);
@@ -20,12 +34,16 @@ export class SelectQueries {
 
     public static async MostPopularStaffMember(): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT UUC.UnitId,COUNT(UUC.UnitId) AS TOTALCOUNT FROM UnitUnitCoordinator UUC 
-            INNER JOIN UnitCoordinator UC ON UC.UnitCoordinatorId=UUC.UnitCoordinatorId
-            INNER JOIN Unit UN ON UN.UnitId=UUC.UnitId
-            INNER JOIN Enrollment ENR ON ENR.UnitId=UN.UnitId
-            INNER JOIN Semester SM ON SM.SemesterId=ENR.SemesterId 
-            WHERE SM.SemesterName='2023SEM1' GROUP BY UUC.UnitId ORDER BY TOTALCOUNT DESC;
+            Select UnitCoordinator.UnitCoordinatorId, UnitCoordinator.FirstName, UnitCoordinator.SurName, COUNT(UnitCoordinator.UnitCoordinatorId) as UnitCount
+            From UnitCoordinator 
+            Join Enrollment on Enrollment.UnitCoordinatorId = UnitCoordinator.UnitCoordinatorId
+            Join Unit On Unit.UnitId = Enrollment.UnitId
+            Join Semester On Enrollment.SemesterId = Semester.SemesterId
+            Join Year On Semester.YearId = Year.YearId
+            Where Semester.SemesterName = ' Semester1'
+            and Year.YearName = '2023Sem1'
+            Group by UnitCoordinator.UnitCoordinatorId, UnitCoordinator.FirstName, UnitCoordinator.SurName
+            Order by UnitCount DESC;
         `);
 
         console.log(query);
@@ -33,12 +51,16 @@ export class SelectQueries {
 
     public static async LeastPopularStaffMember(): Promise<void> {
         const query = await AppDataSource.query(`
-        SELECT UUC.UnitId,COUNT(UUC.UnitId) AS TOTALCOUNT FROM UnitUnitCoordinator UUC 
-        INNER JOIN UnitCoordinator UC ON UC.UnitCoordinatorId=UUC.UnitCoordinatorId
-        INNER JOIN Unit UN ON UN.UnitId=UUC.UnitId
-        INNER JOIN Enrollment ENR ON ENR.UnitId=UN.UnitId
-        INNER JOIN Semester SM ON SM.SemesterId=ENR.SemesterId 
-        WHERE SM.SemesterName='2023SEM1' GROUP BY UUC.UnitId ORDER BY TOTALCOUNT ASC;
+            Select UnitCoordinator.UnitCoordinatorId, UnitCoordinator.FirstName, UnitCoordinator.SurName, COUNT(UnitCoordinator.UnitCoordinatorId) as UnitCount
+            From UnitCoordinator 
+            Join Enrollment on Enrollment.UnitCoordinatorId = UnitCoordinator.UnitCoordinatorId
+            Join Unit On Unit.UnitId = Enrollment.UnitId
+            Join Semester On Enrollment.SemesterId = Semester.SemesterId
+            Join Year On Semester.YearId = Year.YearId
+            Where Semester.SemesterName = ' Semester1'
+            and Year.YearName = '2023Sem1'
+            Group by UnitCoordinator.UnitCoordinatorId, UnitCoordinator.FirstName, UnitCoordinator.SurName
+            Order by UnitCount ASC;
         `);
 
         console.log(query);
@@ -46,7 +68,9 @@ export class SelectQueries {
 
     public static async StudentsWhoNeverEnrolled(): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT StudentId FROM Enrollment WHERE EnrollmentId not in (SELECT EnrollmentId FROM Enrollment);
+            Select *
+            From Student
+            Where StudentId Not In (Select  Distinct  StudentId From Enrollment);
         `);
 
         console.log(query);
@@ -54,10 +78,18 @@ export class SelectQueries {
 
     public static async OlderstFemaleAndYoungestMaleStudents(): Promise<void> {
         const query = await AppDataSource.query(`
-            SELECT * FROM Student WHERE (Gender = 'Female' AND DOB = (SELECT MIN(DOB) FROM Student WHERE Gender = 'Female')) 
-            OR (Gender = 'Male' AND DOB = (SELECT MAX(DOB) FROM Student WHERE Gender = 'Male'));
+        SELECT * FROM Student WHERE (Gender = 'Female' AND DOB = (SELECT MIN(DOB) FROM Student WHERE Gender = 'Female')) 
+        OR (Gender = 'Male' AND DOB = (SELECT MAX(DOB) FROM Student WHERE Gender = 'Male'));
         `);
 
         console.log(query);
+    }
+
+    public static async SelectAllStudents(): Promise<void> {
+        const query = await AppDataSource.query(`
+            SELECT * FROM Student;
+        `);
+
+        console.table(query);
     }
 }

@@ -15,9 +15,9 @@ var unit_1 = require("./entities/unit");
 var year_1 = require("./entities/year");
 var campus_school_1 = require("./entities/relations/campus-school");
 var unit_activity_1 = require("./entities/relations/unit-activity");
-var unit_unit_coordinator_1 = require("./entities/relations/unit-unit-coordinator");
 var environment_1 = require("./environment");
 var unit_room_1 = require("./entities/relations/unit-room");
+var enrollment_activity_1 = require("./entities/relations/enrollment-activity");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: environment_1.Environment.DB_TYPE,
     host: environment_1.Environment.DB_HOST,
@@ -42,8 +42,8 @@ exports.AppDataSource = new typeorm_1.DataSource({
         // Relations
         campus_school_1.CampusSchool,
         unit_activity_1.UnitActivity,
-        unit_unit_coordinator_1.UnitUnitCoordinator,
         unit_room_1.UnitRoom,
+        enrollment_activity_1.EnrollmentActivity,
     ],
     subscribers: [],
     migrations: [],
