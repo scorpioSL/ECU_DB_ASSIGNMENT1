@@ -1,5 +1,3 @@
-
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -69,7 +67,8 @@ CREATE TABLE `Enrollment` (
   `StudentId` int(11) DEFAULT NULL,
   `CampusSchoolId` int(11) DEFAULT NULL,
   `UnitId` int(11) DEFAULT NULL,
-  `ModeId` int(11) DEFAULT NULL
+  `ModeId` int(11) DEFAULT NULL,
+  `SemesterId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -263,7 +262,8 @@ ALTER TABLE `Enrollment`
   ADD KEY `FK_d7fa0f4d3b2ed94c51849f68552` (`StudentId`),
   ADD KEY `FK_17eaeb4c3fbe7602f4c6644d54e` (`CampusSchoolId`),
   ADD KEY `FK_d23f5084d78e8b8b4be58edab5c` (`UnitId`),
-  ADD KEY `FK_04de544a57d065c7396650c3f49` (`ModeId`);
+  ADD KEY `FK_04de544a57d065c7396650c3f49` (`ModeId`),
+  ADD KEY `FK_e34ec319d4369c457739931cc0e` (`SemesterId`);
 
 --
 -- Indexes for table `Mode`
@@ -450,7 +450,8 @@ ALTER TABLE `Enrollment`
   ADD CONSTRAINT `FK_04de544a57d065c7396650c3f49` FOREIGN KEY (`ModeId`) REFERENCES `Mode` (`ModeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_17eaeb4c3fbe7602f4c6644d54e` FOREIGN KEY (`CampusSchoolId`) REFERENCES `CampusSchool` (`CampusSchoolId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_d23f5084d78e8b8b4be58edab5c` FOREIGN KEY (`UnitId`) REFERENCES `Unit` (`UnitId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_d7fa0f4d3b2ed94c51849f68552` FOREIGN KEY (`StudentId`) REFERENCES `Student` (`StudentId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_d7fa0f4d3b2ed94c51849f68552` FOREIGN KEY (`StudentId`) REFERENCES `Student` (`StudentId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_e34ec319d4369c457739931cc0e` FOREIGN KEY (`SemesterId`) REFERENCES `Semester` (`SemesterId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `UnitActivity`
